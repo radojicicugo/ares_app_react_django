@@ -1,0 +1,63 @@
+import React,{useState, useEffect} from 'react';
+import axios from 'axios';
+import {Link, useNavigate, useHistory, useParams} from 'react-router-dom'
+import {Button, Card, Container} from 'react-bootstrap'
+import NavBarMenu from '../NavBarMenu';
+
+
+
+
+
+function ShowAngelovski(props) {
+
+
+    const { id } = useParams();
+ 
+    console.log(props)
+ 
+    const [product, setProduct] = useState([])
+
+    const getProduct = async () => {
+        const response = await axios.get("http://127.0.0.1:8000/angelovski/")
+        console.log(response.data)
+        setProduct(response.data)
+      }
+
+    useEffect(() => {
+      getProduct();
+    
+    }, [])
+
+return(
+    <div className="showProduct-nav">
+      <NavBarMenu/>
+      <h3 className="ugljesa-h3">Gospodin Angelovski</h3>
+      <Link className="btn btn-success" to={'/addangelovski'}>Dodaj Novo</Link>
+        {
+            product.map((el, index) => (
+<Container className="map">
+  <Card className="card" key={index} style={{ width: '18rem'}} >
+  <Card.Body className="body-body">
+    <Card.Title className="mb-2 text-muted">Prezime: <strong>{el.prezime}</strong></Card.Title>
+    <Card.Subtitle className="mb-2 text-muted">Datum: {el.dan}</Card.Subtitle>
+    <Card.Title>Pozicija: {el.pozicija}</Card.Title>
+    <Card.Text>redni broj/id: {el.id}</Card.Text>
+    <Card.Text >Pocetak smene: {el.pocetak}</Card.Text>
+    <Card.Text >Kraj smene: {el.zavrsetak}</Card.Text>
+    <Card.Text>Pauza: {el.pauza}</Card.Text>
+    <Card.Text>Opis: {el.opis}</Card.Text>
+    <Card.Text className="brojSati"><strong>sati:</strong> {el.sati}</Card.Text>
+    <Card.Text className="brojSati"><strong>Total:</strong> {el.total}</Card.Text>
+    {/*<Link to={`/${el.id}/`} className="btn btn-primary" >Detail</Link>*/} 
+    <Link to={`/${el.id}/update`}  className="btn btn-primary" >Detail</Link> 
+    <a href={`/detaildejan${el.id}/:id` }>link</a>
+  </Card.Body>
+</Card>
+</Container>
+            ))
+        }
+    </div>
+    );
+}
+
+export default ShowAngelovski;

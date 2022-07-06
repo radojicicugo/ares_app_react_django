@@ -1,0 +1,22 @@
+
+.aktivni-pozadina{
+  background-color: rgb(7, 7, 7);
+  color: white;
+}
+
+.box-aktivni{
+    color: red;
+    color: rgb(197, 255, 71)
+}
+
+
+
+
+
+/*====== . Media query -----------*/
+@media only screen and (min-width: 1200px) {
+    .table {
+      padding: 10px;
+      margin: 10px;
+    }
+  }
